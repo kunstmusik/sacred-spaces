@@ -1,0 +1,46 @@
+<html>
+
+  <head>
+    <title>Steven Yi - Sacred Spaces - Space No. 1</title>
+  </head>
+  <body>
+
+    <section>
+      <h1>Sacred Spaces - Space No. 1</h1>
+      <b>Author: Steven Yi</b>
+
+      <p><button id="startButton" disabled>Loading Music...</button></p>
+    </section>
+ 
+  <script src="csound/CsoundObj.js"></script>
+  <script>
+
+    // Setup Csound and load piece
+
+    CsoundObj.importScripts("./csound/").then(() => {
+      fetch("space_no1.orc").then((response) => {
+        response.text().then((orc) => {
+
+          let startButton = document.getElementById("startButton");
+
+          startButton.innerText = "Press to Start";
+          startButton.disabled = false;
+          startButton.onclick = function() {
+
+            let cs = new CsoundObj();
+            cs.setOption("-m0")
+            cs.compileOrc(orc);
+            cs.start();
+
+            startButton.innerText = "Listening Now...";
+            startButton.disabled = true;
+          }
+
+
+        })
+      })
+    });
+
+  </script>
+  </body>
+</html>
