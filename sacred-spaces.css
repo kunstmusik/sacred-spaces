@@ -1,0 +1,36 @@
+body {
+  font-family: 'Raleway', sans-serif;
+}
+
+header, main, footer {
+  max-width: 400px;
+  margin: auto;
+}
+
+header, footer {
+  text-align: center;
+}
+
+header {
+  padding: 10px 0px;
+}
+
+header>h1 {
+  font-family: 'Roboto Bold', sans-serif;
+}
+
+h1 {
+  font-family: 'Roboto', sans-serif;
+}
+
+section {
+  padding: 10px 0px;
+}
+
+footer {
+  padding-top: 30px;
+}
+
+.centered {
+  text-align: center;
+}

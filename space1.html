@@ -2,17 +2,29 @@
 
   <head>
     <title>Steven Yi - Sacred Spaces - Space No. 1</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto:400,700" rel="stylesheet">
+    <link href="sacred-spaces.css" rel="stylesheet">
   </head>
   <body>
 
-    <section>
-      <h1>Sacred Spaces - Space No. 1</h1>
-      <b>Author: Steven Yi</b>
+    <header>
+      <h1>Space No. 1</h1>
+      Author: <a href="http://kunstmusik.com">Steven Yi</a>
+    </header>
 
+    <main>
+    <section class="centered">
       <p><button id="startButton" disabled>Loading Music...</button></p>
     </section>
+    </main>
+
+    <footer>
+      <small>Copyright &copy; <a href="http://kunstmusik.com">Steven Yi</a> 2018. All rights reserved.</small>
+    </footer>
  
   <script src="csound/CsoundObj.js"></script>
+  <script src="space_no1.orc" type="text/csound-orc"></script>
   <script>
 
     // Setup Csound and load piece
