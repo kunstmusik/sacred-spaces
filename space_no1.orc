@@ -5,7 +5,8 @@ Date: 2018.07.16
 Description: Ambient music generated in the tape loop style of Brian Eno
 */
 
-sr	=	48000
+// sr not set here so that Web version uses default sr of WebAudio
+/*sr	=	48000*/ 
 ksmps	= 64	
 nchnls	=	2
 0dbfs	=	1
