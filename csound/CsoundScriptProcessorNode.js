@@ -48,7 +48,7 @@ class CsoundScriptProcessorNodeFactory {
 
     // Utility function to load a script and set callback
     static loadScript(src, callback) {
-        var script = document.createElement('script');
+        var script = document.createElementNS("http://www.w3.org/1999/xhtml", "script");
         script.src = src;
         script.onload = callback;
         document.head.appendChild(script);
@@ -133,7 +133,11 @@ class CsoundScriptProcessorNodeFactory {
  *   @returns {object} A new CsoundScriptProcessorNode
  */
 CsoundScriptProcessorNode  = function(context, options) {
-    var spn = context.createScriptProcessor(0, options.numberOfInputs, options.numberOfOutputs);
+    // using 0 here gets a 256 size buffer on iOS, which is too small and yields bad performance
+    // Firefox looks to use 4096 by default, Edge uses 2048, will just hardcode to 4096 for all
+    // ScriptProcessorNode platforms
+    var spn = context.createScriptProcessor(4096, 
+            options.numberOfInputs, options.numberOfOutputs);
     spn.inputCount = options.numberOfInputs;
     spn.outputCount = options.numberOfOutputs;
 
@@ -371,6 +375,18 @@ CsoundScriptProcessorNode  = function(context, options) {
          */ 
         reset() {
             CSOUND.reset(this.csound);
+            CSOUND.setMidiCallbacks(this.csound);
+            CSOUND.setOption(this.csound, "-odac");
+            CSOUND.setOption(this.csound, "-iadc");
+            CSOUND.setOption(this.csound, "-M0");
+            CSOUND.setOption(this.csound, "-+rtaudio=null");
+            CSOUND.setOption(this.csound, "-+rtmidi=null");
+            CSOUND.prepareRT(this.csound);
+            var sampleRate = CSOUND_AUDIO_CONTEXT.sampleRate;
+            CSOUND.setOption(this.csound, "--sample-rate="+sampleRate);
+            CSOUND.setOption(this.csound, "--nchnls=" + this.nchnls);
+            CSOUND.setOption(this.csound, "--nchnls_i=" + this.nchnls_i); 
+            this.started = false;
             this.compiled = false;
         },
 
